@@ -6,6 +6,7 @@ import android.app.Application;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.util.Log;
+import android.view.Window;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -15,6 +16,8 @@ import org.json.JSONObject;
 
 import java.lang.ref.WeakReference;
 import java.util.Iterator;
+
+import me.young.autotrack.sdk.callback.WrapperWindowCallback;
 
 /**
  * 用来操作私有数据
@@ -109,7 +112,44 @@ public class SensorsDataPrivate {
     }
 
     public static void registerActivityStateObserver(Application app) {
+        app.registerActivityLifecycleCallbacks(new Application.ActivityLifecycleCallbacks() {
+            @Override
+            public void onActivityCreated(@NonNull Activity activity, @Nullable Bundle savedInstanceState) {
+                Window activityWindow = activity.getWindow();
+                Window.Callback windowCallback = activityWindow.getCallback();
+                activityWindow.setCallback(new WrapperWindowCallback(activity, windowCallback));
+            }
 
+            @Override
+            public void onActivityStarted(@NonNull Activity activity) {
+
+            }
+
+            @Override
+            public void onActivityResumed(@NonNull Activity activity) {
+
+            }
+
+            @Override
+            public void onActivityPaused(@NonNull Activity activity) {
+
+            }
+
+            @Override
+            public void onActivityStopped(@NonNull Activity activity) {
+
+            }
+
+            @Override
+            public void onActivitySaveInstanceState(@NonNull Activity activity, @NonNull Bundle outState) {
+
+            }
+
+            @Override
+            public void onActivityDestroyed(@NonNull Activity activity) {
+
+            }
+        });
     }
 
     public static void mergeJsonObject(JSONObject source, JSONObject dest) throws JSONException {

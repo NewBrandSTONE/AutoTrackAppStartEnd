@@ -2,6 +2,7 @@ package me.young.autotrack.sdk;
 
 import android.app.Application;
 import android.util.Log;
+import android.view.View;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -52,6 +53,10 @@ public class SensorsDataAPI {
 
     public static SensorsDataAPI getInstance() {
         return INSTANCE;
+    }
+
+    public static void trackViewOnClick(View view) {
+
     }
 
     public void track(@NonNull String eventName, @Nullable JSONObject properties) {
